@@ -1,26 +1,36 @@
 @import "tailwindcss";
 
+html,
+body,
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  height: 100%;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme {
+  --color-primary: #fc842d;
+  --color-secondary: "#9B9FAA";
+  --color-textColor: "#212121";
+  --color-pageBg: "#f0f1f3";
+}
+
+.btn-normal {
+  @apply bg-primary text-white w-44 h-11 justify-self-center md:justify-self-start mt-10  py-3 px-6 font-bold text-sm shadow-xl flex justify-center items-center rounded-full;
+}
+
+.btn-outline {
+  @apply bg-white text-primary border-2 border-primary w-44 h-11 justify-self-center md:justify-self-start mt-10  py-3 px-6 font-bold text-sm shadow-xl flex justify-center items-center rounded-full;
+}
+
+.btn-calculator {
+  @apply w-52 h-11 bg-primary text-white justify-self-center md:justify-self-start mt-10  py-3 px-6 font-bold text-sm shadow-xl flex justify-center items-center rounded-full;
 }

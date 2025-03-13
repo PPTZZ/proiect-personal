@@ -1,103 +1,124 @@
 import Image from "next/image";
+import blob from "@/public/blob.svg";
+import banana from "@/public/banana.png";
+import strawberry from "@/public/strawberry-web.png";
+import leafs from "@/public/leafs.png";
+import leafsTab from "@/public/leafs-tab.png";
+import Modal from "@/ui/modal/modal";
+import { calculateUserKcal, userCredetials } from "@/lib/actions";
 
-export default function Home() {
+const Home = async () => {
+  const dataSession = await userCredetials();
+  const bannedFoods = dataSession.bannedFoods;
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+    <>
+      <Modal bannedProductsList={bannedFoods}></Modal>
+      <div className="flex flex-col h-fit sm:w-4/5 md:w-[38rem] px-5 sm:px-8 md:px-4">
+        <h1 className="font-bold text-lg mt-8 sm:text-4xl sm:mt-24 z-10 ">
+          Calculate your daily calorie intake right now
+        </h1>
+        <form
+          action={calculateUserKcal}
+          className="bg-transparent grid grid-cols-1 sm:grid-cols-2 sm:place-items-start mt-8 z-10"
+        >
+          <div className="flex flex-col gap-8">
+            <input
+              type="number"
+              name="height"
+              placeholder="Enter your height *"
+              required
+              className="w-full border-b-2 border-neutral-400 text-secondary font-semibold focus-visible:outline-none sm:py-5"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <input
+              type="number"
+              name="age"
+              placeholder="Enter your age *"
+              required
+              className="w-full border-b-2 border-neutral-400 text-secondary font-semibold focus-visible:outline-none  sm:py-5"
+            />
+            <input
+              type="number"
+              name="currentWeight"
+              placeholder="Enter your weight *"
+              required
+              className="w-full border-b-2 border-neutral-400 text-secondary font-semibold focus-visible:outline-none sm:py-5"
+            />
+          </div>
+          <div className="mt-8 flex flex-col gap-1 sm:m-0">
+            <input
+              type="number"
+              name="desiredWeight"
+              placeholder="Enter your goal weight *"
+              required
+              className="w-full border-b-2 border-neutral-400 text-secondary font-semibold focus-visible:outline-none sm:py-5"
+            />
+            <div>
+              <p className="w-full mt-8 text-neutral-500 font-semibold sm:border-b-2 border-neutral-400   sm:py-5 sm:mt-[28px]">
+                Blood type *
+              </p>
+              <div className="flex justify-around w-full items-center gap-1 sm:mt-5">
+                {[1, 2, 3, 4].map((num) => (
+                  <label
+                    key={num}
+                    className="flex justify-center space-x-1 items-center cursor-pointer transition-all"
+                  >
+                    <input
+                      type="radio"
+                      name="bloodType"
+                      id={`bld${num}`}
+                      value={num}
+                      className="hidden peer "
+                      required
+                    />
+                    <span className="size-5 border-2 b border-neutral-400order-gra border-neutral-400y-500 rounded-full flex items-center justify-center peer-checked:border-pri border-neutral-400mary peer-checked:bg-primary peer-checked:ring-inset peer-checked:ring-2 peer-checked:ring-white transition-all"></span>
+                    <span className="text-gray-800 peer-checked:text-primary">
+                      {num}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+          <button className="btn-calculator cursor-pointer">
+            Start losing weight
+          </button>
+        </form>
+        <Image
+          src={blob}
+          alt="blob"
+          className=" hidden md:block md:absolute md:-bottom-48 md:-right-8 lg:-right-0 lg:bottom-0 lg:-w[38rem] lg:h-[51rem]"
+        />
+        <Image
+          width={498}
+          height={450}
+          src={banana}
+          alt="banana image"
+          className="hidden md:block md:absolute md:-bottom-28 md:right-0 lg:-top-4"
+        />
+        <Image
+          width={286}
+          height={279}
+          src={strawberry}
+          alt="strawberry image"
+          className="hidden md:block md:absolute md:bottom-48 md:right-10 lg:bottom-0 lg:right-32"
+        />
+        <Image
+          width={530}
+          height={531}
+          src={leafsTab}
+          alt="leafs image image"
+          className="hidden md:block md:absolute md:-bottom-0 md:left-4 lg:hidden"
+        />
+        <Image
+          width={746}
+          height={846}
+          src={leafs}
+          alt="leafs image image"
+          className="hidden lg:block lg:absolute lg:right-56 lg:top-0"
+        />
+      </div>
+    </>
   );
-}
+};
+
+export default Home;
