@@ -42,14 +42,14 @@ const Navbar = async () => {
         </>
       ) : (
         <>
-          <Link href={"/user/diary"}>
+          <Link href={"/diary"}>
             <p
               className={`font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12 hidden lg:block`}
             >
               DIARY
             </p>
           </Link>
-          <Link href={"/user/calculator"}>
+          <Link href={"/calculator"}>
             <p className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12 hidden lg:block">
               CALCULATOR
             </p>

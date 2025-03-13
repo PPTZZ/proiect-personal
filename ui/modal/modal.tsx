@@ -31,7 +31,7 @@ const Modal: React.FC<TModalProps> = ({
     router.replace("/calculator");
   };
 
-  const { data } = bannedProductsList;
+    const data = bannedProductsList || [];
 
   const looseWeight = async () => {
     if (onOK) {

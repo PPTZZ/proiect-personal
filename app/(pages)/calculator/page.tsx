@@ -4,18 +4,14 @@ import leafs from "@/public/leafs.png";
 import Modal from "@/ui/modal/modal";
 import { NextPage } from "next";
 import Image from "next/image";
-import { redirect } from "next/navigation";
-
 interface Props {}
 
 const Page: NextPage<Props> = async ({}) => {
-  const session = await userCredetials();
-  if (!session.isLoggedIn) {
-    redirect("/");
-  }
+  const dataSession = await userCredetials();
+
   return (
     <>
-      <Modal bannedProductsList={session.bannedFoods}></Modal>
+      <Modal bannedProductsList={dataSession.bannedFoods}></Modal>
       <div className="flex flex-col lg:flex-row ">
         <div className="flex flex-col h-fit px-5 sm:px-8 md:px-4 md:w-3/5">
           <h1 className="font-bold text-lg mt-8 sm:text-4xl  ">
@@ -74,7 +70,7 @@ const Page: NextPage<Props> = async ({}) => {
                         className="hidden peer "
                         required
                       />
-                      <span className="size-5 border-2 border-gray-500 rounded-full flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary peer-checked:ring-inset peer-checked:ring-2 peer-checked:ring-white transition-all"></span>
+                      <span className="size-5 border-2 border-gray-500 rounded-full flex items-center justify-center peer-checked:bg-primary peer-checked:ring-inset peer-checked:ring-2 peer-checked:ring-white transition-all"></span>
                       <span className="text-gray-800 peer-checked:text-primary">
                         {num}
                       </span>

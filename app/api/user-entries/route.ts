@@ -4,17 +4,14 @@ import Product from "@/models/productSchema";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-
-
-export const GET = async (req:NextRequest)=>{
+export const GET = async (req: NextRequest) => {
   try {
     await dbConnect();
     const url = new URL(req.url);
     const searchParams = url.searchParams;
-    const owner = searchParams.get('userId');
+    const owner = searchParams.get("userId");
     const entries = await Entry.find({ owner: owner });
     return NextResponse.json(entries, { status: 200 });
-    
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json(error.message);
@@ -22,9 +19,7 @@ export const GET = async (req:NextRequest)=>{
       return NextResponse.json("An unknown error occurred");
     }
   }
-}
-
-
+};
 
 export const POST = async (req: NextRequest) => {
   try {

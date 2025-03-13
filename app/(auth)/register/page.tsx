@@ -15,7 +15,6 @@ const Register: NextPage = ({}) => {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
   };
   return (
     <div>

@@ -1,19 +1,36 @@
-import { userCredetials } from "@/lib/actions";
-import { redirect } from "next/navigation";
+"use client";
+import { addNewEntry, getEntryList } from "@/lib/actions";
 import leafsTab from "@/public/leafs-tab.png";
 import leafs from "@/public/leafs.png";
 import Image from "next/image";
 import ConsummedProductsList from "@/ui/products/consummedProductsList";
+import { formattedDate } from "@/lib/services";
+import { useEffect, useState } from "react";
 
-const Diary = async () => {
-  const session = await userCredetials();
-  if (!session.isLoggedIn) {
-    redirect("/");
-  }
+const Diary = () => {
+  const dateToday = formattedDate();
+  const [entryList, setEntryList] = useState();
+  useEffect(() => {
+    
+  }, []);
+
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    entryList = await addNewEntry(formData);
+  };
+
   return (
     <div className="w-3/5 mt-24 container">
-      <form className="flex flex-col">
-        <input type="date" name="entryDate" className="text-3xl w-2/5" />
+      <form onSubmit={handleSubmit} className="flex flex-col">
+        <input
+          type="date"
+          name="entryDate"
+          className="text-3xl w-1/3"
+          defaultValue={dateToday}
+        />
         <div className="flex mt-16 gap-12">
           <input
             className="border-b-2 w-60 placeholder:font-semibold"

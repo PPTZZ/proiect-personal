@@ -1,15 +1,15 @@
 import { deleteEntry } from "@/lib/actions";
 
 const ConsumedProduct = ({
+  id,
   productName,
   grams,
   cals,
-  id,
 }: {
+  id: string;
   productName: string;
   grams: number;
   cals: number;
-  id: string;
 }) => {
   return (
     <div className="w-full h-10 flex justify-between items-center mb-3">

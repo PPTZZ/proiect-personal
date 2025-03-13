@@ -47,7 +47,7 @@ export const registerUser = async (formData: FormData) => {
 };
 
 export const loginUser = async (
-  prevState: { error: undefined | string },
+  prevState: { loggedin: boolean; error: undefined | string },
   formData: FormData
 ): Promise<any> => {
   const session = await userCredetials();
@@ -92,7 +92,22 @@ export const calculateUserKcal = async (formData: FormData): Promise<any> => {
   params.set("recomandedCalories", recomandedCalories.toString());
   params.set("bloodType", formData.get("bloodType") as string);
   params.set("sd", "y");
-  redirect(`/calculator?${params.toString()}`);
+  if (!storeData.isLoggedIn) {
+    redirect(`/?${params.toString()}`);
+  } else {
+    redirect(`/calculator?${params.toString()}`);
+  }
+};
+
+export const getEntryList = async () => {
+  try {
+    const session = await userCredetials();
+    const userId = session.userId;
+    const response = await axios.get(
+      `http://localhost:3000/api/user-entries?userId=${userId}`
+    );
+    return response.data;
+  } catch (error) {}
 };
 
 export const addNewEntry = async (formData: FormData): Promise<any> => {
@@ -100,14 +115,13 @@ export const addNewEntry = async (formData: FormData): Promise<any> => {
   const productName = formData.get("productName") as string;
   const grams = formData.get("grams") as string;
   const entryDate = formData.get("entryDate") as string;
-  await axios.post("http:/localhost:3000/api/user-entries", {
+  const response = await axios.post("http://localhost:3000/api/user-entries", {
     product: productName,
     grams,
     date: entryDate,
     owner: session.userId,
   });
-  revalidateTag("user-entries");
-  redirect("/diary");
+  return response.data;
 };
 
 export const deleteEntry = async (formData: FormData): Promise<any> => {
@@ -115,8 +129,6 @@ export const deleteEntry = async (formData: FormData): Promise<any> => {
   await axios.delete("http://localhost:3000/api/user-entries", {
     data: { _id: id },
   });
-  revalidateTag("user-entries");
-  redirect("/diary");
 };
 
 export const logoutUser = async () => {

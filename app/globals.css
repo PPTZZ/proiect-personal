@@ -24,13 +24,13 @@ input[type="number"] {
 }
 
 .btn-normal {
-  @apply bg-primary text-white w-44 h-11 justify-self-center md:justify-self-start mt-10  py-3 px-6 font-bold text-sm shadow-xl flex justify-center items-center rounded-full;
+  @apply bg-primary text-white w-44 h-11 justify-self-center md:justify-self-start mt-10  py-3 px-6 font-bold text-sm shadow-xl flex justify-center items-center rounded-full cursor-pointer;
 }
 
 .btn-outline {
-  @apply bg-white text-primary border-2 border-primary w-44 h-11 justify-self-center md:justify-self-start mt-10  py-3 px-6 font-bold text-sm shadow-xl flex justify-center items-center rounded-full;
+  @apply bg-white text-primary border-2 border-primary w-44 h-11 justify-self-center md:justify-self-start mt-10  py-3 px-6 font-bold text-sm shadow-xl flex justify-center items-center rounded-full cursor-pointer;
 }
 
 .btn-calculator {
-  @apply w-52 h-11 bg-primary text-white justify-self-center md:justify-self-start mt-10  py-3 px-6 font-bold text-sm shadow-xl flex justify-center items-center rounded-full;
+  @apply w-52 h-11 bg-primary text-white justify-self-center md:justify-self-start mt-10  py-3 px-6 font-bold text-sm shadow-xl flex justify-center items-center rounded-full cursor-pointer;
 }

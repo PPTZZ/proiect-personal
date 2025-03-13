@@ -9,10 +9,17 @@ import leafsTab from "@/public/leafs-tab.png";
 import Link from "next/link";
 import { useActionState } from "react";
 import { loginUser } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 
 const Login: NextPage = ({}) => {
-  const [state, formAction] = useActionState<any, FormData>(loginUser, undefined);
-
+  const [state, formAction] = useActionState<any, FormData>(
+    loginUser,
+    undefined
+  );
+  const router = useRouter();
+  const handleClick = () => {
+    router.replace("/register");
+  };
   return (
     <div>
       <form
@@ -39,9 +46,9 @@ const Login: NextPage = ({}) => {
           <button type="submit" className="btn-normal">
             Log in
           </button>
-          <Link href={"/register"}>
-            <button className="btn-outline">Register</button>
-          </Link>
+          <button onClick={handleClick} className="btn-outline">
+            Register
+          </button>
         </div>
       </form>
       <Image

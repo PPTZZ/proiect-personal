@@ -60,7 +60,17 @@ export type TSessionData = {
   userName?: string;
   isLoggedIn: boolean;
   bannedFoods?: string[] | void;
+  entryList?: [];
   consumedCals?: number;
   recomandedCals?: number;
   session: string;
+};
+
+export type EntryProps = {
+  entryList: {
+    id: string;
+    productName: string;
+    grams: number;
+    cals: number;
+  }[];
 };
