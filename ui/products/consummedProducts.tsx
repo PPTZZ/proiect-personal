@@ -1,16 +1,24 @@
+"use client";
 import { deleteEntry } from "@/lib/actions";
+import { ConsumedProductProps } from "@/lib/definitions";
+import { FC } from "react";
 
-const ConsumedProduct = ({
+const ConsumedProduct: FC<ConsumedProductProps> = ({
   id,
   productName,
   grams,
   cals,
-}: {
-  id: string;
-  productName: string;
-  grams: number;
-  cals: number;
+  setEntryList,
 }) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const newList = await deleteEntry(formData);
+    setEntryList(newList);
+  };
+
   return (
     <div className="w-full h-10 flex justify-between items-center mb-3">
       <p className="border-b-2 pb-2 border-neutral-200 w-60 text-textColor font-semibold">
@@ -22,9 +30,11 @@ const ConsumedProduct = ({
       <p className="border-b-2 pb-2 border-neutral-200 w-28 flex justify-end text-textColor font-semibold">
         {Math.round(cals)} kcal
       </p>
-      <form action={deleteEntry}>
+      <form onSubmit={handleSubmit}>
         <input type="hidden" name="id" value={id} />
-        <button className="mr-10 cursor-pointer font-bold">X</button>
+        <button type="submit" className="mr-10 cursor-pointer font-bold">
+          X
+        </button>
       </form>
     </div>
   );

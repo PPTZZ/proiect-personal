@@ -4,11 +4,10 @@ import logo from "@/public/logo.svg";
 import slim from "@/public/Slim.svg";
 import mom from "@/public/Mom.svg";
 import menu from "@/public/menu.svg";
-import { logoutUser, userCredetials } from "@/lib/actions";
+import { userCredetials } from "@/lib/actions";
 
 const Navbar = async () => {
   const session = await userCredetials();
-  const name = session.userName;
 
   return (
     <div className="flex bg-transparent  items-center space-x-4 border-b-2 border-neutral-200 lg:border-none px-5 sm:px-8 md:px-4 pb-4">
@@ -54,18 +53,6 @@ const Navbar = async () => {
               CALCULATOR
             </p>
           </Link>
-          <div className="flex absolute items-center right-20 lg:right-56 gap-5">
-            <p className="font-bold text-xs leading-4 text-textColor z-10 lg:relative lg:top-5 lg:right-12 ">
-              {name}
-            </p>
-            <p
-              onClick={logoutUser}
-              className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5 lg:right-12 border-l-2 pl-5 border-neutral-200 z-10"
-            >
-              Exit
-            </p>
-            <Image src={menu} alt="menu icon" className="lg:hidden" />
-          </div>
         </>
       )}
     </div>

@@ -12,6 +12,7 @@ const Home = async () => {
   const bannedFoods = dataSession.bannedFoods;
   return (
     <>
+     
       <Modal bannedProductsList={bannedFoods}></Modal>
       <div className="flex flex-col h-fit sm:w-4/5 md:w-[38rem] px-5 sm:px-8 md:px-4">
         <h1 className="font-bold text-lg mt-8 sm:text-4xl sm:mt-24 z-10 ">

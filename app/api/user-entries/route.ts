@@ -60,13 +60,27 @@ export const POST = async (req: NextRequest) => {
   }
 };
 
+
 export const DELETE = async (req: NextRequest) => {
   try {
     await dbConnect();
-    const data = await req.json();
-    const { _id } = data;
-    await Entry.findOneAndDelete({ _id: _id });
-    return NextResponse.json({ status: 200 });
+    console.log("Database connected");
+
+    const url = new URL(req.url);
+    const searchParams = url.searchParams;
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ message: "Missing ID" }, { status: 400 });
+    }
+    
+    const deletedEntry = await Entry.findOneAndDelete({ _id: id });
+
+    if (!deletedEntry) {
+      return NextResponse.json({ message: "Entry not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: "Deleted successfully" }, { status: 200 });
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.error("Error removing entry:", err.message);
@@ -86,3 +100,4 @@ export const DELETE = async (req: NextRequest) => {
     }
   }
 };
+

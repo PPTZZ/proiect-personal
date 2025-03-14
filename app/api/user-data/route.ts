@@ -11,7 +11,7 @@ export const GET = async (request: Request) => {
     const searchQuery = searchParams.get("bloodType") || 0;
     const querry = { [`groupBloodNotAllowed.${searchQuery}`]: true };
     const data = await Product.distinct("categories", querry);
-    return NextResponse.json(data);
+    return NextResponse.json(data, { status: 200 });
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log(err.message);
@@ -30,7 +30,7 @@ export const PATCH = async (request: Request) => {
     user.userData.bannedProducts = data.bannedProducts;
     user.userData.recomandedKcal = data.recomandedKcal;
     await user.save();
-    return NextResponse.json(user);
+    return NextResponse.json(user, { status: 200 });
   } catch (err: unknown) {
     if (err instanceof Error) {
       console.log(err);

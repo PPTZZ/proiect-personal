@@ -125,10 +125,36 @@ export const addNewEntry = async (formData: FormData): Promise<any> => {
 };
 
 export const deleteEntry = async (formData: FormData): Promise<any> => {
-  const id = formData.get("id");
-  await axios.delete("http://localhost:3000/api/user-entries", {
-    data: { _id: id },
-  });
+  try {
+    const dataSession = await userCredetials();
+    const id = formData.get("id") as string;
+
+    if (!id) {
+      throw new Error("Missing ID in formData");
+    }
+
+    const response = await axios.delete(
+      `http://localhost:3000/api/user-entries?id=${id}`
+    );
+
+    if (response.status === 204 || response.status === 200) {
+      try {
+        const userId = dataSession.userId;
+        const newList = await axios.get(
+          `http://localhost:3000/api/user-entries?userId=${userId}`
+        );
+        return newList.data;
+      } catch (error) {
+        console.error("Error fetching updated list:", error);
+        throw error;
+      }
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error deleting entry:", error);
+    throw error;
+  }
 };
 
 export const logoutUser = async () => {

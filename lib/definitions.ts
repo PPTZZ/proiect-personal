@@ -73,4 +73,21 @@ export type EntryProps = {
     grams: number;
     cals: number;
   }[];
+  setEntryList: React.Dispatch<
+    React.SetStateAction<
+      { id: string; productName: string; grams: number; cals: number }[]
+    >
+  >;
+};
+
+export type ConsumedProductProps = {
+  id: string;
+  productName: string;
+  grams: number;
+  cals: number;
+  setEntryList: (entries: any) => void;
+};
+
+export type PageProps = {
+  name: string;
 };

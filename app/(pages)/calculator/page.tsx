@@ -1,9 +1,7 @@
 import { calculateUserKcal, userCredetials } from "@/lib/actions";
-import leafsTab from "@/public/leafs-tab.png";
-import leafs from "@/public/leafs.png";
+
 import Modal from "@/ui/modal/modal";
 import { NextPage } from "next";
-import Image from "next/image";
 interface Props {}
 
 const Page: NextPage<Props> = async ({}) => {
@@ -12,8 +10,8 @@ const Page: NextPage<Props> = async ({}) => {
   return (
     <>
       <Modal bannedProductsList={dataSession.bannedFoods}></Modal>
-      <div className="flex flex-col lg:flex-row ">
-        <div className="flex flex-col h-fit px-5 sm:px-8 md:px-4 md:w-3/5">
+      <div className="flex flex-col lg:flex-row lg:pt-24">
+        <div className="flex flex-col h-fit px-5 sm:px-8 md:px-4 relative">
           <h1 className="font-bold text-lg mt-8 sm:text-4xl  ">
             Calculate your daily calorie intake right now
           </h1>
@@ -83,20 +81,6 @@ const Page: NextPage<Props> = async ({}) => {
               Start losing weight
             </button>
           </form>
-          <Image
-            width={530}
-            height={531}
-            src={leafsTab}
-            alt="leafs image image"
-            className="hidden md:block md:absolute md:-bottom-64 md:-right-48 lg:hidden"
-          />
-          <Image
-            width={746}
-            height={846}
-            src={leafs}
-            alt="leafs image image"
-            className="hidden lg:block lg:absolute lg:-right-80 lg:top-56 rotate-45"
-          />
         </div>
       </div>
     </>
