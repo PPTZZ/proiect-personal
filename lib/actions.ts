@@ -2,6 +2,7 @@
 import axios from "axios";
 import {
   axiosPost,
+  calculateConsummedCals,
   calorieCalculator,
   defaultSession,
   fetchBannedProducts,
@@ -106,6 +107,9 @@ export const getEntryList = async () => {
     const response = await axios.get(
       `http://localhost:3000/api/user-entries?userId=${userId}`
     );
+    const consummedCals = calculateConsummedCals(response.data);
+    session.consumedCals = consummedCals;
+    await session.save();
     return response.data;
   } catch (error) {}
 };
@@ -121,6 +125,9 @@ export const addNewEntry = async (formData: FormData): Promise<any> => {
     date: entryDate,
     owner: session.userId,
   });
+  const consummedCals = calculateConsummedCals(response.data);
+  session.consumedCals = consummedCals;
+  await session.save();
   return response.data;
 };
 
@@ -143,6 +150,9 @@ export const deleteEntry = async (formData: FormData): Promise<any> => {
         const newList = await axios.get(
           `http://localhost:3000/api/user-entries?userId=${userId}`
         );
+        const consummedCals = calculateConsummedCals(newList.data);
+        dataSession.consumedCals = consummedCals;
+        await dataSession.save();
         return newList.data;
       } catch (error) {
         console.error("Error fetching updated list:", error);

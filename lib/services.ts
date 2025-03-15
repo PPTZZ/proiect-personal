@@ -1,7 +1,7 @@
 import bcryptjs from "bcryptjs";
 import axios from "axios";
 import { SessionOptions } from "iron-session";
-import { TSessionData } from "./definitions";
+import { ConsumedProductProps, TSessionData } from "./definitions";
 
 export const hashPassword = (password: string): string => {
   const slat = bcryptjs.genSaltSync(10);
@@ -28,6 +28,12 @@ export const calorieCalculator = (
     161 -
     10 * (currentWeight - desiredWeight)
   );
+};
+
+export const calculateConsummedCals = (entryList: ConsumedProductProps[]) => {
+  const values = entryList.map((entry) => entry.kcal);
+  const total = values.reduce((acc: number, currVal: number | undefined) => acc + (currVal || 0), 0);
+  return Math.round(total);
 };
 
 export const formattedDate = (): string => {

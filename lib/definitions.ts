@@ -86,6 +86,7 @@ export type ConsumedProductProps = {
   grams: number;
   cals: number;
   setEntryList: (entries: any) => void;
+  kcal?: number;
 };
 
 export type PageProps = {

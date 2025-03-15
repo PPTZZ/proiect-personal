@@ -31,7 +31,6 @@ const Diary = () => {
 
   return (
     <>
-    
         <form onSubmit={handleSubmit} className="flex flex-col ">
           <input
             type="date"

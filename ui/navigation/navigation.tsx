@@ -38,6 +38,11 @@ const Navbar = async () => {
               REGISTRATION
             </p>
           </Link>
+          <Image
+            src={menu}
+            alt="menu icon"
+            className="lg:hidden cursor-pointer"
+          />
         </>
       ) : (
         <>
@@ -53,6 +58,11 @@ const Navbar = async () => {
               CALCULATOR
             </p>
           </Link>
+          <Image
+            src={menu}
+            alt="menu icon"
+            className="lg:hidden cursor-pointer"
+          />
         </>
       )}
     </div>
