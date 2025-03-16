@@ -6,6 +6,7 @@ import Image from "next/image";
 import ConsummedProductsList from "@/ui/products/consummedProductsList";
 import { formattedDate } from "@/lib/services";
 import { useEffect, useState } from "react";
+import MobileForm from "@/ui/modal/mobileform";
 
 const Diary = () => {
   const dateToday = formattedDate();
@@ -31,46 +32,46 @@ const Diary = () => {
 
   return (
     <>
-        <form onSubmit={handleSubmit} className="flex flex-col ">
+    <MobileForm setEntryList={setEntryList}/>
+      <form onSubmit={handleSubmit} className=" hidden sm:flex flex-col mt-32 ">
+        <input
+          type="date"
+          name="entryDate"
+          className="text-3xl max-w-60"
+          defaultValue={dateToday}
+        />
+        <div className="flex mt-16 gap-12">
           <input
-            type="date"
-            name="entryDate"
-            className="text-3xl max-w-60"
-            defaultValue={dateToday}
+            className="border-b-2 w-60 placeholder:font-semibold"
+            type="text"
+            name="productName"
+            placeholder="Enter roduct name"
           />
-          <div className="flex mt-16 gap-12">
-            <input
-              className="border-b-2 w-60 placeholder:font-semibold"
-              type="text"
-              name="productName"
-              placeholder="Enter roduct name"
-            />
-            <input
-              className="border-b-2 w-28 placeholder:text-right placeholder:font-semibold"
-              type="number"
-              name="grams"
-              placeholder="Grams"
-            />
-            <button className="size-14 bg-primary text-5xl text-white rounded-full flex justify-center aspect-square">
-              +
-            </button>
-          </div>
-        </form>
-        <ConsummedProductsList
-          entryList={entryList}
-          setEntryList={setEntryList}
-        />
-        <Image
-          src={leafsTab}
-          alt="leafs image image"
-          className="hidden md:block md:absolute md:-bottom-64 md:-right-48 lg:hidden -z-10"
-        />
-        <Image
-          src={leafs}
-          alt="leafs image image"
-          className="hidden lg:block lg:absolute lg:-right-80 lg:top-56 rotate-45 -z-10"
-        />
-   
+          <input
+            className="border-b-2 w-28 placeholder:text-right placeholder:font-semibold"
+            type="number"
+            name="grams"
+            placeholder="Grams"
+          />
+          <button className="size-14 bg-primary text-5xl text-white rounded-full flex justify-center aspect-square">
+            +
+          </button>
+        </div>
+      </form>
+      <ConsummedProductsList
+        entryList={entryList}
+        setEntryList={setEntryList}
+      />
+      <Image
+        src={leafsTab}
+        alt="leafs image image"
+        className="hidden md:block md:absolute md:-bottom-64 md:-right-48 lg:hidden -z-10"
+      />
+      <Image
+        src={leafs}
+        alt="leafs image image"
+        className="hidden lg:block lg:absolute lg:-right-80 lg:top-56 rotate-45 -z-10"
+      />
     </>
   );
 };

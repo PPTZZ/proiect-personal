@@ -3,14 +3,14 @@ import Link from "next/link";
 import logo from "@/public/logo.svg";
 import slim from "@/public/Slim.svg";
 import mom from "@/public/Mom.svg";
-import menu from "@/public/menu.svg";
 import { userCredetials } from "@/lib/actions";
+import MenuButton from "../misc/buttons";
 
 const Navbar = async () => {
   const session = await userCredetials();
 
   return (
-    <div className="flex bg-transparent  items-center space-x-4 border-b-2 border-neutral-200 lg:border-none px-5 sm:px-8 md:px-4 pb-4">
+    <div className="flex bg-transparent  items-center space-x-4 border-b-2 border-neutral-300 lg:border-none px-5 sm:px-8 md:px-4 pb-4">
       <div className="flex-grow lg:flex-grow-0 flex items-center space-x-3 ">
         <Image
           height={66}
@@ -28,21 +28,16 @@ const Navbar = async () => {
         <>
           <Link href={"/login"}>
             <p
-              className={`font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12`}
+              className={`font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12 z-10`}
             >
               LOG IN
             </p>
           </Link>
           <Link href={"/register"}>
-            <p className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12">
+            <p className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5  lg:-left-12 z-10">
               REGISTRATION
             </p>
           </Link>
-          <Image
-            src={menu}
-            alt="menu icon"
-            className="lg:hidden cursor-pointer"
-          />
         </>
       ) : (
         <>
@@ -58,11 +53,7 @@ const Navbar = async () => {
               CALCULATOR
             </p>
           </Link>
-          <Image
-            src={menu}
-            alt="menu icon"
-            className="lg:hidden cursor-pointer"
-          />
+          <MenuButton />
         </>
       )}
     </div>

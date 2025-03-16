@@ -12,7 +12,6 @@ import { TSessionData } from "./definitions";
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { revalidateTag } from "next/cache";
 
 export const userCredetials = async () => {
   const sessionCookies = await cookies();

@@ -1,12 +1,5 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
- experimental:{
-  serverActions: {
-    bodySizeLimit: undefined,
-    allowedOrigins: undefined,
-  },
- }
-};
+const nextConfig: NextConfig = {};
 
 export default nextConfig;

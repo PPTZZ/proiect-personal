@@ -1,0 +1,595 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Slim mom API",
+      "description": "API for user authentication, registration, user data management, and diary entries",
+      "version": "0.0.1"
+    },
+    "paths": {
+      "/api/login": {
+        "post": {
+          "summary": "Login user",
+          "description": "Authenticates a user by verifying their email and password. Returns user data if authentication is successful.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User authenticated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized - Invalid password",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "example": {
+                    "message": "Password not valid"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found - User not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "example": {
+                    "message": "User not found"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "example": {
+                    "message": "Error",
+                    "error": "An error occurred during authentication"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/register": {
+        "post": {
+          "summary": "Register user",
+          "description": "Registers a new user with the provided name, email, and password.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User registered successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "example": "User registered"
+                      },
+                      "status": {
+                        "type": "integer",
+                        "example": 200
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Unauthorized - Registration failed",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "example": {
+                    "message": "Failed"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "example": {
+                    "message": "Error",
+                    "error": "An error occurred during registration"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/user-data": {
+        "get": {
+          "summary": "Get user data",
+          "description": "Retrieves product categories based on the user's blood type.",
+          "parameters": [
+            {
+              "name": "bloodType",
+              "in": "query",
+              "description": "The user's blood type (0-4)",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Product categories retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": ["vegetables", "fruits"]
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "example": {
+                    "message": "Error",
+                    "error": "An error occurred while fetching data"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patch": {
+          "summary": "Update user data",
+          "description": "Updates the user's banned products and recommended calorie intake.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserDataRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User data updated successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "example": {
+                    "message": "Error",
+                    "error": "An error occurred while updating user data"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/user-entries": {
+        "get": {
+          "summary": "Get user diary entries",
+          "description": "Retrieves all diary entries for a specific user.",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "query",
+              "description": "The ID of the user",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Diary entries retrieved successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Entry"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "example": {
+                    "message": "Error",
+                    "error": "An error occurred while fetching entries"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new diary entry",
+          "description": "Creates a new diary entry for a user.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateEntryRequest"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Diary entry created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Entry"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "example": {
+                    "message": "Failed to create entry",
+                    "error": "An error occurred"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a diary entry",
+          "description": "Deletes a diary entry by its ID.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "query",
+              "description": "The ID of the diary entry",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Diary entry deleted successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "example": "Deleted successfully"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request - Missing ID",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "example": {
+                    "message": "Missing ID"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found - Entry not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "example": {
+                    "message": "Entry not found"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Error"
+                  },
+                  "example": {
+                    "message": "Failed to remove entry",
+                    "error": "An error occurred"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "LoginRequest": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "format": "email",
+              "example": "john.doe@example.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "password123"
+            }
+          },
+          "required": ["email", "password"]
+        },
+        "RegisterRequest": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "John Doe"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "example": "john.doe@example.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "password123"
+            }
+          },
+          "required": ["name", "email", "password"]
+        },
+        "UpdateUserDataRequest": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "64f1b2b3c9e77b001a1b2b3c"
+            },
+            "bannedProducts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "example": ["peanuts", "gluten"]
+            },
+            "recomandedKcal": {
+              "type": "number",
+              "example": 2000
+            }
+          },
+          "required": ["id", "bannedProducts", "recomandedKcal"]
+        },
+        "CreateEntryRequest": {
+          "type": "object",
+          "properties": {
+            "product": {
+              "type": "string",
+              "example": "Carrot"
+            },
+            "grams": {
+              "type": "number",
+              "example": 100
+            },
+            "date": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2023-09-01T12:00:00Z"
+            },
+            "owner": {
+              "type": "string",
+              "example": "64f1b2b3c9e77b001a1b2b3c"
+            }
+          },
+          "required": ["product", "grams", "date", "owner"]
+        },
+        "User": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "64f1b2b3c9e77b001a1b2b3c"
+            },
+            "name": {
+              "type": "string",
+              "example": "John Doe"
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "example": "john.doe@example.com"
+            },
+            "password": {
+              "type": "string",
+              "example": "$2a$10$examplehashedpassword"
+            },
+            "userData": {
+              "type": "object",
+              "properties": {
+                "bannedProducts": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": ["peanuts", "gluten"]
+                },
+                "recomandedKcal": {
+                  "type": "number",
+                  "example": 2000
+                }
+              }
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2023-09-01T12:00:00Z"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2023-09-01T12:00:00Z"
+            }
+          }
+        },
+        "Entry": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "64f1b2b3c9e77b001a1b2b3c"
+            },
+            "date": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2023-09-01T12:00:00Z"
+            },
+            "productName": {
+              "type": "string",
+              "example": "Carrot"
+            },
+            "grams": {
+              "type": "number",
+              "example": 100
+            },
+            "kcal": {
+              "type": "number",
+              "example": 41
+            },
+            "owner": {
+              "type": "string",
+              "example": "64f1b2b3c9e77b001a1b2b3c"
+            }
+          }
+        },
+        "Product": {
+          "type": "object",
+          "properties": {
+            "categories": {
+              "type": "string",
+              "example": "vegetables"
+            },
+            "weight": {
+              "type": "number",
+              "example": 100
+            },
+            "title": {
+              "type": "string",
+              "example": "Carrot"
+            },
+            "calories": {
+              "type": "number",
+              "example": 41
+            },
+            "groupBloodNotAllowed": {
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              },
+              "example": [false, true, false, true, false]
+            }
+          }
+        },
+        "Error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "example": "An error occurred"
+            },
+            "error": {
+              "type": "string",
+              "example": "Detailed error message"
+            }
+          }
+        }
+      }
+    }
+  }
