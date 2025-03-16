@@ -7,7 +7,10 @@ const dbConnect = async () => {
     return;
   }
   try {
-    const db = await mongoose.connect("mongodb://localhost:27017/SlimMom");
+    if (!process.env.MONGO_URI) {
+      throw new Error("MONGO_URI is not defined");
+    }
+    const db = await mongoose.connect(process.env.MONGO_URI);
     connection.isConnected = db.connections[0].readyState;
   } catch (err) {
     console.log(err);

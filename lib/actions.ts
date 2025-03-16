@@ -28,7 +28,7 @@ export const userCredetials = async () => {
 export const registerUser = async (formData: FormData) => {
   const name = formData.get("name");
   const email = formData.get("email");
-  const password = formData.get("password") as string;
+  const password = formData.get("password");
 
   if (!password) {
     throw new Error("Password is required");

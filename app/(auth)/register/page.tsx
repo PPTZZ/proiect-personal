@@ -1,4 +1,3 @@
-"use client";
 import { NextPage } from "next";
 import Image from "next/image";
 import blob from "@/public/blob.svg";
@@ -6,20 +5,13 @@ import banana from "@/public/banana.png";
 import strawberry from "@/public/strawberry-web.png";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
-import { useRouter } from "next/navigation";
+import { registerUser } from "@/lib/actions";
 
-const Register: NextPage = ({}) => {
-  const router = useRouter();
-  const handleClick = () => {
-    router.replace("/login");
-  };
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
+const Register: NextPage = async ({}) => {
   return (
     <div>
       <form
-        onSubmit={handleSubmit}
+        action={registerUser}
         className="bg-transparent mt-10 z-10 flex flex-col sm:w-96 items-center px-5 sm:items-start"
       >
         <h2 className="font-semibold text-primary mt-14">Registration</h2>
@@ -48,9 +40,7 @@ const Register: NextPage = ({}) => {
           <button type="submit" className="btn-normal">
             Register
           </button>
-          <button onClick={handleClick} className="btn-outline">
-            Log in
-          </button>
+          <button className="btn-outline">Log in</button>
         </div>
       </form>
       <Image

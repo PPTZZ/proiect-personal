@@ -70,7 +70,7 @@ export default async function RootLayout({
               </p>
               <p
                 onClick={logoutUser}
-                className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5 lg:right-12 border-l-2 pl-5 border-neutral-400 hidden lg:block"
+                className="font-bold text-xs leading-4 text-secondary cursor-pointer lg:relative lg:top-5 lg:right-12 border-l-2 pl-5 border-neutral-400 hidden lg:block z-20"
               >
                 Exit
               </p>
