@@ -1,9 +1,8 @@
-
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/productSchema";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (request: Request) => {
+export const GET = async (request: NextRequest) => {
   try {
     await dbConnect();
     const url = new URL(request.url);
@@ -11,7 +10,7 @@ export const GET = async (request: Request) => {
     const searchQuery = searchParams.get("bloodType") || 0;
     const querry = { [`groupBloodNotAllowed.${searchQuery}`]: true };
 
-    const products = await Product.distinct("categories", querry)
+    const products = await Product.distinct("categories", querry);
 
     return NextResponse.json(products, { status: 200 });
   } catch (err: unknown) {

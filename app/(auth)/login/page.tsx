@@ -11,10 +11,7 @@ import { loginUser } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 
 const Login: NextPage = ({}) => {
-  const [state, formAction] = useActionState<any, FormData>(
-    loginUser,
-    undefined
-  );
+  const [error, formAction, isPending] = useActionState(loginUser, null);
   const router = useRouter();
   const handleClick = () => {
     router.replace("/register");
@@ -40,7 +37,7 @@ const Login: NextPage = ({}) => {
           required
           className="w-full sm:w-2/3 border-b-2 text-secondary font-semibold focus-visible:outline-none py-5"
         />
-        {state?.error && <p>{state.error}</p>}
+        {error && <p className="text-red-600">{error}</p>}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:gap-8">
           <button type="submit" className="btn-normal">
             Log in

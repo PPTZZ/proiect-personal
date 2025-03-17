@@ -4,11 +4,8 @@ import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-type PostRequest = NextRequest & {
-  json: () => Promise<object>;
-};
 
-export const POST = async (request: PostRequest): Promise<NextResponse> => {
+export const POST = async (request: NextRequest): Promise<NextResponse> => {
   try {
     await dbConnect();
     const data = await request.json();

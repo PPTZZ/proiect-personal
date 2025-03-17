@@ -1,9 +1,9 @@
 import dbConnect from "@/lib/dbConnect";
 import Product from "@/models/productSchema";
 import User from "@/models/userSchema";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (request: Request) => {
+export const GET = async (request: NextRequest) => {
   try {
     await dbConnect();
     const url = new URL(request.url);
@@ -22,7 +22,7 @@ export const GET = async (request: Request) => {
   }
 };
 
-export const PATCH = async (request: Request) => {
+export const PATCH = async (request: NextRequest) => {
   try {
     await dbConnect();
     const data = await request.json();

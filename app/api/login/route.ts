@@ -1,14 +1,9 @@
-
 import dbConnect from "@/lib/dbConnect";
 import { verifyPassword } from "@/lib/services";
 import User from "@/models/userSchema";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-interface PostRequest {
-  json: () => Promise<{ email: string; password: string }>;
-}
-
-export const POST = async (request: PostRequest): Promise<NextResponse> => {
+export const POST = async (request: NextRequest): Promise<NextResponse> => {
   try {
     await dbConnect();
     const data = await request.json();

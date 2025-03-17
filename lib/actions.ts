@@ -47,14 +47,14 @@ export const registerUser = async (formData: FormData): Promise<void> => {
 };
 
 export const loginUser = async (
-  prevState: { loggedin: boolean; error: undefined | string },
+  prevState: string | null,
   formData: FormData
-): Promise<object> => {
+) => {
   const session = await userCredetials();
-  const email = formData.get("email");
-  const password = formData.get("password");
+  const email = formData.get("email") as FormDataEntryValue;
+  const password = formData.get("password") as FormDataEntryValue;
   if (!email || !password) {
-    return { error: "Email and password are required" };
+    return "Email and password are required";
   }
   const response = await axiosPost("api/login", email, password);
   if (response?.status === 200) {
@@ -65,7 +65,7 @@ export const loginUser = async (
     await session.save();
     redirect("/calculator");
   } else {
-    return { error: response?.error };
+    return response?.error;
   }
 };
 
@@ -110,7 +110,9 @@ export const getEntryList = async () => {
     session.consumedCals = consummedCals;
     await session.save();
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    return error;
+  }
 };
 
 export const addNewEntry = async (formData: FormData): Promise<object> => {
