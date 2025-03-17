@@ -6,7 +6,6 @@ import banana from "@/public/banana.png";
 import strawberry from "@/public/strawberry-web.png";
 import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
-import Link from "next/link";
 import { useActionState } from "react";
 import { loginUser } from "@/lib/actions";
 import { useRouter } from "next/navigation";

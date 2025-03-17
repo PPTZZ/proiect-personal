@@ -2,9 +2,9 @@ import { calculateUserKcal, userCredetials } from "@/lib/actions";
 
 import Modal from "@/ui/modal/modal";
 import { NextPage } from "next";
-interface Props {}
 
-const Page: NextPage<Props> = async ({}) => {
+
+const Page: NextPage = async ({}) => {
   const dataSession = await userCredetials();
 
   return (

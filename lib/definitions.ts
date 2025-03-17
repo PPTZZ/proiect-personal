@@ -50,7 +50,7 @@ export type RootState = {
     _id: string;
   };
   entries: {
-    entryList: any[];
+    entryList: [];
   };
 };
 
@@ -85,7 +85,7 @@ export type ConsumedProductProps = {
   productName: string;
   grams: number;
   cals: number;
-  setEntryList: (entries: any) => void;
+  setEntryList: (entries: object[]) => void;
   kcal?: number;
 };
 

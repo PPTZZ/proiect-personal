@@ -7,6 +7,7 @@ import leafs from "@/public/leafs.png";
 import leafsTab from "@/public/leafs-tab.png";
 import { registerUser } from "@/lib/actions";
 
+
 const Register: NextPage = async ({}) => {
   return (
     <div>

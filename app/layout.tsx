@@ -26,7 +26,7 @@ export default async function RootLayout({
   const percent = dailyRate > 0 ? Math.round((consumed / dailyRate) * 100) : 0;
 
   const getDate = () => {
-    let currentDate = new Date();
+    const currentDate = new Date();
     const options: Intl.DateTimeFormatOptions = {
       day: "2-digit",
       year: "numeric",

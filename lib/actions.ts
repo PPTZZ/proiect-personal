@@ -25,7 +25,7 @@ export const userCredetials = async () => {
   return session;
 };
 
-export const registerUser = async (formData: FormData) => {
+export const registerUser = async (formData: FormData): Promise<void> => {
   const name = formData.get("name");
   const email = formData.get("email");
   const password = formData.get("password");
@@ -34,12 +34,12 @@ export const registerUser = async (formData: FormData) => {
     throw new Error("Password is required");
   }
   try {
-    const response = await axios.post("http://localhost:3000/api/register", {
+    await axios.post("http://localhost:3000/api/register", {
       name,
       email,
       password,
     });
-    return response.status;
+    return;
   } catch (error) {
     console.error("Registration failed:", error);
     throw new Error(String(error));
@@ -49,7 +49,7 @@ export const registerUser = async (formData: FormData) => {
 export const loginUser = async (
   prevState: { loggedin: boolean; error: undefined | string },
   formData: FormData
-): Promise<any> => {
+): Promise<object> => {
   const session = await userCredetials();
   const email = formData.get("email");
   const password = formData.get("password");
@@ -69,7 +69,7 @@ export const loginUser = async (
   }
 };
 
-export const calculateUserKcal = async (formData: FormData): Promise<any> => {
+export const calculateUserKcal = async (formData: FormData): Promise<void> => {
   const storeData = await userCredetials();
   const params = new URLSearchParams();
   const height = formData.get("height") as string;
@@ -113,7 +113,7 @@ export const getEntryList = async () => {
   } catch (error) {}
 };
 
-export const addNewEntry = async (formData: FormData): Promise<any> => {
+export const addNewEntry = async (formData: FormData): Promise<object> => {
   const session = await userCredetials();
   const productName = formData.get("productName") as string;
   const grams = formData.get("grams") as string;
@@ -130,7 +130,9 @@ export const addNewEntry = async (formData: FormData): Promise<any> => {
   return response.data;
 };
 
-export const deleteEntry = async (formData: FormData): Promise<any> => {
+export const deleteEntry = async (
+  formData: FormData
+): Promise<object[] | null> => {
   try {
     const dataSession = await userCredetials();
     const id = formData.get("id") as string;

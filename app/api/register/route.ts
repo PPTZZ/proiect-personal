@@ -1,4 +1,3 @@
-
 import dbConnect from "@/lib/dbConnect";
 import User from "@/models/userSchema";
 import bcrypt from "bcryptjs";
@@ -6,7 +5,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 type PostRequest = NextRequest & {
-  json: () => Promise<any>;
+  json: () => Promise<object>;
 };
 
 export const POST = async (request: PostRequest): Promise<NextResponse> => {
