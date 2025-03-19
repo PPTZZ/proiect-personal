@@ -16,7 +16,9 @@ const ConsumedProduct: FC<ConsumedProductProps> = ({
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const newList = await deleteEntry(formData);
-    setEntryList(newList);
+    if (newList) {
+      setEntryList(newList);
+    }
   };
 
   return (

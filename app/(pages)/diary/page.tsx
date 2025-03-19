@@ -7,12 +7,11 @@ import ConsummedProductsList from "@/ui/products/consummedProductsList";
 import { formattedDate } from "@/lib/services";
 import { useEffect, useState } from "react";
 import MobileForm from "@/ui/modal/mobileform";
+import { Entry } from "@/lib/definitions";
 
 const Diary = () => {
   const dateToday = formattedDate();
-  const [entryList, setEntryList] = useState<
-    { id: string; productName: string; grams: number; cals: number }[]
-  >([]);
+  const [entryList, setEntryList] = useState<Entry[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       const entries = await getEntryList();
@@ -32,8 +31,8 @@ const Diary = () => {
 
   return (
     <>
-    <MobileForm setEntryList={setEntryList}/>
-      <form onSubmit={handleSubmit} className=" hidden sm:flex flex-col mt-32 ">
+      <MobileForm setEntryList={setEntryList} />
+      <form onSubmit={handleSubmit} className=" hidden sm:flex flex-col mt-32 px-20">
         <input
           type="date"
           name="entryDate"

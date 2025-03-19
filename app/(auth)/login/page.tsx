@@ -11,7 +11,7 @@ import { loginUser } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 
 const Login: NextPage = ({}) => {
-  const [error, formAction, isPending] = useActionState(loginUser, null);
+  const [error, formAction] = useActionState(loginUser, null);
   const router = useRouter();
   const handleClick = () => {
     router.replace("/register");

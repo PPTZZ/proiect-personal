@@ -10,7 +10,7 @@ const Page: NextPage = async ({}) => {
   return (
     <>
       <Modal bannedProductsList={dataSession.bannedFoods}></Modal>
-      <div className="flex flex-col lg:flex-row lg:pt-24">
+      <div className="flex flex-col lg:flex-row lg:pt-24 sm:px-20">
         <div className="flex flex-col h-fit px-5 sm:px-8 md:px-4 relative">
           <h1 className="font-bold text-lg mt-8 sm:text-4xl  ">
             Calculate your daily calorie intake right now

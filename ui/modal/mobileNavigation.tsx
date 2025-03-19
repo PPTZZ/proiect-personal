@@ -33,7 +33,7 @@ const MobileNav = () => {
     showDialog === "y" ? (
       <dialog
         ref={dialogRef}
-        className="w-full h-full bg-cyan-950 text-white font-bold z-20 absolute top-0 flex flex-col items-center gap-4 py-4"
+        className="w-full h-full bg-cyan-950 text-white font-bold z-30 absolute top-0 flex flex-col items-center gap-4 py-4"
       >
         {links.map((link,index) => (
           <Link key={index} href={link.destination}>{link.name}</Link>

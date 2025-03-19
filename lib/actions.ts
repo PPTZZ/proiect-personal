@@ -115,7 +115,12 @@ export const getEntryList = async () => {
   }
 };
 
-export const addNewEntry = async (formData: FormData): Promise<object> => {
+export const addNewEntry = async (
+  formData: FormData
+): Promise<
+  { id: string; productName: string; grams: number; cals: number }[]
+> => {
+
   const session = await userCredetials();
   const productName = formData.get("productName") as string;
   const grams = formData.get("grams") as string;

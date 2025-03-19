@@ -66,18 +66,23 @@ export type TSessionData = {
   session: string;
 };
 
-export type EntryProps = {
+export type Entry = {
+  _id: string;
+  productName: string;
+  grams(grams: any): number;
+  kcal(kcal: any): number;
   entryList: {
     id: string;
+    _id: string;
     productName: string;
-    grams: number;
-    cals: number;
+    grams: string;
+    kals: string;
   }[];
-  setEntryList: React.Dispatch<
-    React.SetStateAction<
-      { id: string; productName: string; grams: number; cals: number }[]
-    >
-  >;
+};
+
+export type EntryProps = {
+  entryList: Entry[];
+  setEntryList: React.Dispatch<React.SetStateAction<Entry[]>>;
 };
 
 export type ConsumedProductProps = {

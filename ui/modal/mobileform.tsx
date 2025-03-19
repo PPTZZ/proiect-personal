@@ -60,7 +60,7 @@ const MobileForm = ({ setEntryList }: MobileFormProps) => {
             name="grams"
             placeholder="Grams"
           />
-          <button className="size-14 bg-primary text-5xl text-white rounded-full flex justify-center aspect-square self-center">
+          <button className="size-14 bg-primary text-5xl text-white rounded-full flex justify-center aspect-square self-center cursor-pointer">
             +
           </button>
         </div>

@@ -63,7 +63,7 @@ export default async function RootLayout({
           <div className="hidden lg:block lg:w-1/3 lg:h-screen bg-transparent lg:pt-24 overflow-hidden"></div>
         )}
         {session.userId && (
-          <div className=" lg:w-1/3 lg:h-screen bg-neutral-200 lg:pt-24 overflow-hidden">
+          <div className=" lg:w-1/3 lg:h-screen h-full bg-neutral-200 mt-12 lg:mt-0 lg:pt-24 overflow-hidden">
             <div className="flex absolute items-center right-20 lg:right-56 gap-5">
               <p className="font-bold text-xs leading-4 text-textColor z-10 lg:relative lg:top-5 lg:right-12 hidden lg:block ">
                 {name}
@@ -75,8 +75,8 @@ export default async function RootLayout({
                 Exit
               </p>
             </div>
-            <div className="lg:mt-52 px-8 sm:pl-20 w-full lg:max-w-2/3 flex flex-col md:flex-row md:justify-around py-24 lg:py-0 lg:flex-col z-10">
-              <div className="space-y-2 lg:w-full mb-10">
+            <div className="lg:mt-52 px-8 w-full lg:max-w-2/3 flex flex-col md:flex-row md:justify-around py-24 lg:py-0 lg:flex-col">
+              <div className="space-y-2 lg:w-full mb-10 z-20">
                 <p className="font-bold tracking-wide">Summary for {date}</p>
                 <p className="text-neutral-400 font-semibold tracking-wider w-full flex justify-between">
                   <span>Left</span>
@@ -96,7 +96,7 @@ export default async function RootLayout({
                 </p>
               </div>
               <div className="lg:mt-10 space-y-2">
-                <p className="font-bold tracking-wide">Food not recomanded</p>
+                <p className="font-bold tracking-wide">Food not recommended</p>
                 {bannedList?.map((product: string) => (
                   <p
                     key={product}
@@ -111,7 +111,7 @@ export default async function RootLayout({
               <Image
                 src={leafs}
                 alt="leafs image image"
-                className="hidden lg:block lg:absolute lg:-right-40 h-[53rem] lg:-top-[38rem] "
+                className="hidden lg:block lg:absolute lg:-right-52 h-[53rem] lg:-top-[38rem] rotate-45"
               />
             </div>
           </div>
